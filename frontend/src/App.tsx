@@ -33,7 +33,6 @@ function App() {
 
   const submit = async (save: Item) => {
     setIsOpen(false)
-    console.log({ save })
     if (save._id) {
       setData(prev =>
         prev.map(p => {

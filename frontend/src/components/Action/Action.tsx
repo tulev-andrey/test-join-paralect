@@ -14,7 +14,6 @@ export function Action({
   item: Item
   submit: (save: Item) => Promise<void>
 }) {
-  console.log({ item })
   const [form, setForm] = useState(item)
 
   useEffect(() => {

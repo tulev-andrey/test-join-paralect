@@ -11,7 +11,7 @@ mongoose
   .connect(
     'mongodb://mongo:WUdhIthssprDUseHgcoeYNHsNRbISyHG@autorack.proxy.rlwy.net:36040',
   )
-  .then(() => console.log('Подключение к базе данных успешно!'));
+  .then(() => console.info('Подключение к базе данных успешно!'));
 
 const dataSchema = new mongoose.Schema({
   key: Number,
@@ -38,7 +38,6 @@ app.post('/data', async (req, res) => {
 });
 
 app.put('/data', async (req, res) => {
-  console.log(req.body.data);
   if (req.body.data.key) delete req.body.data.key;
   await Data.updateOne(
     { _id: new mongoose.Types.ObjectId(req.body.data._id) },
@@ -53,5 +52,5 @@ app.delete('/data', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Сервер поднят на порту: ${port}`);
+  console.info(`Сервер поднят на порту: ${port}`);
 });
