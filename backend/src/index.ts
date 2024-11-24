@@ -2,18 +2,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
+const cors = require('cors');
 
 app.use(express.json());
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
-  next();
-});
+app.use(cors());
 
-mongoose.connect(
-  'mongodb://mongo:eGTXtCxaHTXvRkZervHSokdNaHrLqKkm@autorack.proxy.rlwy.net:55164',
-);
+mongoose
+  .connect(
+    'mongodb://mongo:WUdhIthssprDUseHgcoeYNHsNRbISyHG@autorack.proxy.rlwy.net:36040',
+  )
+  .then(() => console.log('Подключение к базе данных успешно!'));
 
 const dataSchema = new mongoose.Schema({
   key: Number,
