@@ -34,7 +34,7 @@ function App() {
     if (!item.fork.min) errors.push('Минимальное значение вилки не указано')
     if (!item.fork.max) errors.push('Максимальное значение вилки не указано')
     if (item.fork.max && item.fork.min && item.fork.max < item.fork.min)
-      errors.push('Минимальная сумма вилки должна быть больше максимальной')
+      errors.push('Минимальная сумма вилки должна быть меньше максимальной')
 
     if (errors.length) {
       openNotification(errors)
