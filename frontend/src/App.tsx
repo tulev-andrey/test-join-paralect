@@ -1,11 +1,11 @@
-import { Table, Button } from 'antd'
+import { Table, Button, notification } from 'antd'
 import { defaultItem } from './constants'
 import styles from './App.module.css'
-import { Action } from './components/Action/Action.tsx'
+import { Action } from './components/Action/Action'
 import { useEffect, useState } from 'react'
 import { ForkType, Item } from './types'
-import Api from './api/api.ts'
-import { Fork } from './components/Fork/Fork.tsx'
+import Api from './api/api'
+import { Fork } from './components/Fork/Fork'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 
 const { Column } = Table
@@ -27,12 +27,39 @@ function App() {
     setData(response.data.map((item: Item) => ({ ...item, key: item._id })))
   }
 
+  const isValid = (item: Item): boolean => {
+    const errors: string[] = []
+    if (!item.company) errors.push('Компания не указана')
+    if (!item.vacancy) errors.push('Вакансия не указана')
+    if (!item.fork.min) errors.push('Минимальное значение вилки не указано')
+    if (!item.fork.max) errors.push('Максимальное значение вилки не указано')
+    if (item.fork.max && item.fork.min && item.fork.max < item.fork.min)
+      errors.push('Минимальная сумма вилки должна быть больше максимальной')
+
+    if (errors.length) {
+      openNotification(errors)
+      return false
+    } else return true
+  }
+
+  const openNotification = (errors: string[]) => {
+    notification.error({
+      message: 'Допущены ошибки в заполнении формы',
+      description: errors.map(error => <div>{error}</div>),
+      placement: 'topRight',
+      duration: 8
+    })
+  }
+
   useEffect(() => {
-    getData().then()
+    getData()
   }, [])
 
   const submit = async (save: Item) => {
+    if (!isValid(save)) return
+
     setIsOpen(false)
+
     if (save._id) {
       setData(prev =>
         prev.map(p => {

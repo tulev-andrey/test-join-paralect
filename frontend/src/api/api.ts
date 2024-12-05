@@ -6,7 +6,7 @@ export default class Api {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: 'http://45.132.1.221/api'
+      baseURL: import.meta.env.VITE_REACT_APP_API_URL
     })
   }
 
