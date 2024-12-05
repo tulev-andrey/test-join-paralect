@@ -19,10 +19,10 @@ export default class Api {
   }
 
   async updateData(data: Item) {
-    return await this.instance.put('/data', { data })
+    return await this.instance.put(`/data/${data._id}`, { data })
   }
 
   async deleteData(data: Item) {
-    return await this.instance.delete('/data', { data })
+    return await this.instance.delete(`/data/${data._id}`, { data })
   }
 }
